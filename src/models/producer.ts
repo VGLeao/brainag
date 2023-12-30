@@ -7,9 +7,9 @@ export type Producer = {
   producerName: string;
   farmName: string;
   city: string;
-  state: string;
+  state: State;
   totalArea: number;
   arableArea: number;
   vegetationArea: number;
-  cultivations: string[];
+  cultivations: Cultivation[];
 };
