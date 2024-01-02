@@ -20,7 +20,8 @@ const Dashboard = () => {
   };
 
   producersList.forEach((producer) => {
-    perState[producer.state.uf] = (perState[producer.state.uf] || 0) + 1;
+    perState[producer.state.acronym] =
+      (perState[producer.state.acronym] || 0) + 1;
     perArea['Área agricultável'] += producer.arableArea;
     perArea['Área de vegetação'] += producer.vegetationArea;
     producer.cultivations.forEach((cultivation) => {

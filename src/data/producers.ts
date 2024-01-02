@@ -10,7 +10,7 @@ export const producers: Producer[] = [
     city: 'Maceió',
     state: {
       id: 1,
-      uf: 'AL',
+      acronym: 'AL',
       name: 'Alagoas',
     },
     totalArea: 10,
@@ -26,7 +26,7 @@ export const producers: Producer[] = [
     city: 'Maceió',
     state: {
       id: 1,
-      uf: 'AL',
+      acronym: 'AL',
       name: 'Alagoas',
     },
     totalArea: 10,
@@ -42,7 +42,7 @@ export const producers: Producer[] = [
     city: 'Recife',
     state: {
       id: 17,
-      uf: 'PE',
+      acronym: 'PE',
       name: 'Pernambuco',
     },
     totalArea: 14,
