@@ -8,11 +8,7 @@ export const producers: Producer[] = [
     producerName: 'João',
     farmName: 'Fazenda do João',
     city: 'Maceió',
-    state: {
-      id: 1,
-      acronym: 'AL',
-      name: 'Alagoas',
-    },
+    state: 'AL',
     totalArea: 10,
     arableArea: 8,
     vegetationArea: 2, //
@@ -24,11 +20,7 @@ export const producers: Producer[] = [
     producerName: 'João',
     farmName: 'Fazenda do João',
     city: 'Maceió',
-    state: {
-      id: 1,
-      acronym: 'AL',
-      name: 'Alagoas',
-    },
+    state: 'AL',
     totalArea: 10,
     arableArea: 8,
     vegetationArea: 2,
@@ -40,11 +32,7 @@ export const producers: Producer[] = [
     producerName: 'Maria',
     farmName: 'Fazenda da Maria',
     city: 'Recife',
-    state: {
-      id: 17,
-      acronym: 'PE',
-      name: 'Pernambuco',
-    },
+    state: 'PE',
     totalArea: 14,
     arableArea: 9,
     vegetationArea: 5, //

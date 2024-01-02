@@ -5,8 +5,8 @@ import { producers } from '../data/producers';
 
 type ProducersContextProps = {
   producersList: Producer[];
-  createProducer: (producer: Partial<Producer>) => void;
-  updateProducer: (id: string, producer: Producer) => void;
+  createProducer: (producer: Omit<Producer, 'id'>) => void;
+  updateProducer: (id: string, producer: Omit<Producer, 'id'>) => void;
   deleteProducer: (id: string) => void;
 };
 
@@ -19,12 +19,12 @@ const ProducersContextProvider: React.FC<PropsWithChildren> = ({
 }) => {
   const [producersList, setProducersList] = useState<Producer[]>(producers);
 
-  const createProducer = (producer: Producer) => {
-    producer.id = uuidv4();
-    setProducersList((prev) => [...prev, producer]);
+  const createProducer = (producer: Omit<Producer, 'id'>) => {
+    const payload = { id: uuidv4(), ...producer };
+    setProducersList((prev) => [...prev, payload]);
   };
 
-  const updateProducer = (id: string, producer: Producer) => {
+  const updateProducer = (id: string, producer: Omit<Producer, 'id'>) => {
     const producerFoundIndex = findOneOrFail(id);
     const auxList = [...producersList];
 

@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
-import { getCitiesByState, getStates } from '../../../services/geolocation';
+import { getCitiesByState, getStates } from '@/services/geolocation';
 import { useState } from 'react';
-import { SelectOption } from '../../../types/selectOption';
+import { SelectOption } from '@/types/selectOption';
 
 export const useGetStates = () => {
   const [statesOptions, setStatesOptions] = useState<SelectOption<string>[]>(

@@ -1,7 +1,7 @@
 export const cultivations = [
-  'Soja',
-  'Milho',
-  'Algodão',
-  'Café',
-  'Cana de açúcar',
+  'soja',
+  'milho',
+  'algodão',
+  'café',
+  'cana de açúcar',
 ];

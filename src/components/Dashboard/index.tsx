@@ -1,6 +1,6 @@
 import Chart from 'react-apexcharts';
 import DataCard from '../DataCard';
-import { ProducersContext } from '../../contexts/producers';
+import { ProducersContext } from '@/contexts/producers';
 import { useContext } from 'react';
 import { Box, Flex } from '@chakra-ui/react';
 
@@ -20,8 +20,7 @@ const Dashboard = () => {
   };
 
   producersList.forEach((producer) => {
-    perState[producer.state.acronym] =
-      (perState[producer.state.acronym] || 0) + 1;
+    perState[producer.state] = (perState[producer.state] || 0) + 1;
     perArea['Área agricultável'] += producer.arableArea;
     perArea['Área de vegetação'] += producer.vegetationArea;
     producer.cultivations.forEach((cultivation) => {

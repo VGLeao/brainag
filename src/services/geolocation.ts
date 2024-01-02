@@ -1,5 +1,5 @@
-import { CityResponseDto } from '../models/dto/cityResponseDto';
-import { StateResponseDto } from '../models/dto/stateResponseDto';
+import { CityResponseDto } from '../models/dto/response/cityResponseDto';
+import { StateResponseDto } from '../models/dto/response/stateResponseDto';
 import api from './api';
 
 export const getStates = async () => {

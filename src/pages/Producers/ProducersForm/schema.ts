@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { validateCNPJ, validateCpf } from '../../../utils/validators';
+import { validateCNPJ, validateCpf } from '@/utils/validators';
 
 export const ProducerFormSchema = z
   .object({
@@ -26,10 +26,22 @@ export const ProducerFormSchema = z
       .string()
       .min(1, 'Campo obrigatório')
       .pipe(z.coerce.number().nonnegative('A área não pode ser negativa')),
-    cultivations: z.any(),
+    cultivations: z.array(
+      z.object({
+        value: z.string(),
+        label: z.string(),
+      })
+    ),
   })
-  .refine((schema) => {
-    return schema.totalArea >= schema.vegetationArea + schema.arableArea;
-  }, 'A área total não pode ser menor que a soma das áreas agricultável e de vegetação');
+  .refine(
+    (schema) => {
+      return schema.totalArea >= schema.vegetationArea + schema.arableArea;
+    },
+    {
+      message:
+        'A área total não pode ser menor que a soma das áreas agricultável e de vegetação',
+      path: ['totalArea'],
+    }
+  );
 
 export type ProducerSchema = z.infer<typeof ProducerFormSchema>;

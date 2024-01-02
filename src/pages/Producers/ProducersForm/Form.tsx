@@ -10,14 +10,25 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { default as MultiSelect } from 'react-select';
 import { ProducerFormSchema, ProducerSchema } from './schema';
-import { cultivations } from '../../../data/cultivations';
-import { ChangeEvent, useContext } from 'react';
-import { mask } from '../../../utils/masks';
-import { ProducersContext } from '../../../contexts/producers';
+import { cultivations } from '@/data/cultivations';
+import { ChangeEvent, useContext, useEffect } from 'react';
+import { mask } from '@/utils/masks';
+import { ProducersContext } from '@/contexts/producers';
 import { useGetCities, useGetStates } from './hooks';
+import { Producer } from '@/models/producer';
+import { Cultivation } from '@/models/cultivation';
+import { toast } from 'react-toastify';
 
-const ProducersForm = () => {
-  const { createProducer } = useContext(ProducersContext);
+type ProducersFormProps = {
+  initialValues?: Producer;
+  handleCloseModal: () => void;
+};
+
+const ProducersForm: React.FC<ProducersFormProps> = ({
+  initialValues,
+  handleCloseModal,
+}) => {
+  const { createProducer, updateProducer } = useContext(ProducersContext);
   const {
     register,
     control,
@@ -30,17 +41,73 @@ const ProducersForm = () => {
     mode: 'onSubmit',
     reValidateMode: 'onChange',
     resolver: zodResolver(ProducerFormSchema),
+    defaultValues: {
+      documentNumber: initialValues?.documentNumber,
+      farmName: initialValues?.farmName,
+      producerName: initialValues?.producerName,
+      arableArea: initialValues?.arableArea.toString() as unknown as number,
+      totalArea: initialValues?.totalArea.toString() as unknown as number,
+      vegetationArea:
+        initialValues?.vegetationArea.toString() as unknown as number,
+      cultivations: initialValues?.cultivations.map((cultivation) => {
+        return {
+          value: cultivation,
+          label: cultivation,
+        };
+      }),
+    },
   });
-  const { data: states } = useGetStates();
-  const { data: cities } = useGetCities(watch('state'));
-
+  const { data: states, isFetched: isStatesFetched } = useGetStates();
+  const { data: cities, isFetched: isCitiesFetched } = useGetCities(
+    watch('state')
+  );
   const options = cultivations.map((cultivation) => {
     return { value: cultivation, label: cultivation };
   });
 
+  useEffect(() => {
+    if (initialValues && isStatesFetched) {
+      setValue('state', initialValues.state);
+    }
+  }, [initialValues, setValue, isStatesFetched]);
+
+  useEffect(() => {
+    if (initialValues && isCitiesFetched) {
+      setValue('city', initialValues.city);
+    }
+  }, [initialValues, setValue, isCitiesFetched]);
+
   const onSubmit: SubmitHandler<ProducerSchema> = (values) => {
-    console.log(values);
-    // createProducer(values);
+    const payload: Omit<Producer, 'id'> = {
+      documentNumber: values.documentNumber,
+      farmName: values.farmName,
+      producerName: values.producerName,
+      arableArea: values.arableArea,
+      totalArea: values.totalArea,
+      vegetationArea: values.vegetationArea,
+      cultivations: values.cultivations.map(
+        (cultivation) => cultivation.value
+      ) as Cultivation[],
+      state: values.state,
+      city: values.city,
+    };
+    if (!initialValues) {
+      try {
+        createProducer(payload);
+        toast.success('Produtor criado com sucesso');
+        handleCloseModal();
+      } catch {
+        toast.error('Ops! Algo deu errado.');
+      }
+    } else {
+      try {
+        updateProducer(initialValues.id, payload);
+        toast.success('Produtor editado com sucesso');
+        handleCloseModal();
+      } catch {
+        toast.error('Ops! Algo deu errado.');
+      }
+    }
   };
 
   const handleMaskingDocumentNumber = (e: ChangeEvent<HTMLInputElement>) => {
