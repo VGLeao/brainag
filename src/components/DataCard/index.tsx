@@ -8,13 +8,21 @@ type DataCardProps = {
 
 const DataCard: React.FC<DataCardProps> = ({ title, value, unit }) => {
   return (
-    <Card boxShadow="2px 2px 4px 2px rgba(0,50,115,1)" bg="#A8E0FF">
+    <Card
+      bg="purple.600"
+      border="1px solid white"
+      color="gray.100"
+      width={300}
+      borderRadius={16}
+    >
       <CardHeader>
-        <Text>{title}</Text>
+        <Text fontSize={20} fontWeight={700}>
+          {title}
+        </Text>
       </CardHeader>
-      <CardBody>
-        <Text as="span">{`${value}`}</Text>
-        {unit && <Text as="span">{`${unit}`}</Text>}
+      <CardBody paddingTop={0}>
+        <Text as="span" fontSize={34}>{`${value}`}</Text>
+        {unit && <Text as="span">{` ${unit}`}</Text>}
       </CardBody>
     </Card>
   );

@@ -2,6 +2,7 @@ import Chart from 'react-apexcharts';
 import DataCard from '../DataCard';
 import { ProducersContext } from '../../contexts/producers';
 import { useContext } from 'react';
+import { Box, Flex } from '@chakra-ui/react';
 
 const Dashboard = () => {
   const { producersList } = useContext(ProducersContext);
@@ -29,42 +30,49 @@ const Dashboard = () => {
 
   const perStateOptions = {
     labels: Object.keys(perState),
+    legend: { width: 150 },
   };
   const perStateSeries = Object.values(perState);
 
   const perCultivationOptions = {
     labels: Object.keys(perCultivation),
+    legend: { width: 150 },
   };
   const perCultivationSeries = Object.values(perCultivation);
 
   const perAreaOptions = {
     labels: Object.keys(perArea),
+    legend: { width: 150 },
   };
   const perAreaSeries = Object.values(perArea);
 
   return (
-    <div>
-      <DataCard title="Total de fazendas" value={farmsQuantity} />
-      <DataCard title="Área total" value={totalArea} unit="he" />
-      <Chart
-        options={perStateOptions}
-        series={perStateSeries}
-        type="pie"
-        width="380"
-      />
-      <Chart
-        options={perCultivationOptions}
-        series={perCultivationSeries}
-        type="pie"
-        width="380"
-      />
-      <Chart
-        options={perAreaOptions}
-        series={perAreaSeries}
-        type="pie"
-        width="380"
-      />
-    </div>
+    <Box>
+      <Flex gap={6} justifyContent="center" marginBottom={16}>
+        <DataCard title="Total de fazendas" value={farmsQuantity} />
+        <DataCard title="Área total" value={totalArea} unit="hectares" />
+      </Flex>
+      <Flex wrap="wrap">
+        <Chart
+          options={perStateOptions}
+          series={perStateSeries}
+          type="pie"
+          width="500"
+        />
+        <Chart
+          options={perCultivationOptions}
+          series={perCultivationSeries}
+          type="pie"
+          width="500"
+        />
+        <Chart
+          options={perAreaOptions}
+          series={perAreaSeries}
+          type="pie"
+          width="500"
+        />
+      </Flex>
+    </Box>
   );
 };
 

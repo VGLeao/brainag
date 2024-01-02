@@ -6,9 +6,28 @@ type NavigationLinkProps = {
   name: string;
 };
 
+const activeStyles = {
+  bg: 'purple.600',
+  color: 'white',
+};
+
+const hoverStyles = { bg: 'purple.700', color: 'white' };
+
 const NavigationLink: React.FC<NavigationLinkProps> = ({ url, name }) => {
   return (
-    <ChakraLink as={NavLink} to={url} _activeLink={{ bg: 'red' }}>
+    <ChakraLink
+      as={NavLink}
+      to={url}
+      _activeLink={activeStyles}
+      height={12}
+      borderRadius={12}
+      paddingLeft={4}
+      alignItems="center"
+      display="flex"
+      marginBottom={4}
+      fontWeight={700}
+      _hover={hoverStyles}
+    >
       {name}
     </ChakraLink>
   );
