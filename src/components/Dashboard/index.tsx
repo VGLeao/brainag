@@ -52,7 +52,7 @@ const Dashboard = () => {
         <DataCard title="Total de fazendas" value={farmsQuantity} />
         <DataCard title="Área total" value={totalArea} unit="hectares" />
       </Flex>
-      <Flex wrap="wrap">
+      <Flex wrap="wrap" justifyContent="center">
         <Chart
           options={perStateOptions}
           series={perStateSeries}
